@@ -18,19 +18,22 @@ body {
     margin: 0;
 }
 
-a:hover { color: $light-text-color; }
-a:visited { color: $dark-text-color; }
-a.view {
-    background-color: #ebdcca;
-	display: inline-block;
-    font-size: .9em;
-    font-weight: bold;
-	margin: 1em 0;
-    padding: .5em;
-	text-transform: uppercase;
+a {
+	&:hover { color: $black-color; }
+	&:link { color: $dark-text-color; }
 
-	&::after {
-		content: " >";
+	.view {
+	    background-color: #ebdcca;
+		display: inline-block;
+	    font-size: .9em;
+	    font-weight: bold;
+		margin: 1em 0;
+	    padding: .5em;
+		text-transform: uppercase;
+
+		&::after {
+			content: " >";
+		}
 	}
 }
 
