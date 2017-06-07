@@ -11,6 +11,7 @@ $dark-text-color: #573739;
 $light-text-color: #a57075;
 $white-color: #fff;
 $black-color: #000;
+$grey: #eee;
 
 body {
 	color: $text-color;
@@ -92,6 +93,11 @@ h2 {
     text-transform: uppercase;
 }
 
+h3 {
+	font-size: 1.1em;
+	text-align: center;
+}
+
 #intro {
 	background-image: url("{{ site.baseurl }}/_pages/boulder-mountains-houses.jpg");
     background-position: center center;
@@ -154,6 +160,7 @@ footer {
  }
 
 img {
+	&.bordered { border: 3px solid #ebdcca; }
 	&.meetup { height: 35px; }
 	&.slack { height: 50px; }
 	&.github { height: 80px; }
@@ -226,6 +233,10 @@ img {
  	h4 {
 	    -webkit-margin-after: 0;
 	    -webkit-margin-before: 0;
+	    color: $dark-text-color;
+	    font-size: .9em;
+	    margin-bottom: .5em;
+	    text-transform: uppercase;
 
 	    &.inline {
 	    	display: inline;
@@ -237,10 +248,25 @@ img {
 	    }
  	}
 
+	h5 {
+		font-size: .9em;
+
+		&.inline {
+			display: inline;
+
+			&::after {
+				content: ": ";
+				color: $text-color;
+			}
+		}
+	}
+
  	li {
+		background-color: $grey;
  		list-style-type: none;
-		margin-bottom: 2em;
+		margin-bottom: 1em;
  		overflow: hidden;
+		padding: 1em;
  	}
 }
 

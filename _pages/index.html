@@ -61,13 +61,12 @@ layout: default
 	<p>Projects are actionable ideas brought to life through collaboration in which everyone has the talents to contribute to. From idea pitching to live product, we use an agile process where a product champion and tech lead will build and manage the team and tasks necessary to the project completion.</p>
 	<h3>Current projects</h3>
 
-	Comming soon.
-	<!-- Existing fields are pictureLink, title, description, team, partner, repoLink, stack, needed.
+	<!-- Existing fields are pictureLink, title, description, team, partner, projectLink, stack, needed. -->
 	<ul>
 		{% for current-project in site.current-projects %}
 			<li>
 				{% if current-project.pictureLink %}
-				<img class="left-half" src="{{ site.url }}/current-projects/{{  current-project.pictureLink }}" alt="Project: {{ current-project.title }}">
+				<img class="left-half bordered" src="{{ site.baseurl }}/current-projects/{{  current-project.pictureLink }}" alt="Project: {{ current-project.title }}">
 				{% endif %}
 				{% if current-project.title %}
 					<div>
@@ -77,7 +76,7 @@ layout: default
 				{% endif %}
 				{% if current-project.team %}
 					<div class="margin-top">
-						<h4 class="inline">Team</h4>
+						<h5 class="inline">Team</h5>
 						<span class="project-team">
 							{{ current-project.team | array_to_sentence_string }}
 						</span>
@@ -85,29 +84,28 @@ layout: default
 				{% endif %}
 				{% if current-project.partner %}
 					<div>
-						<h4 class="inline">Partner</h4>
+						<h5 class="inline">Partner</h5>
 						<span class="project-partner">{{ current-project.partner }}</span>
 					</div>
 				{% endif %}
 				{% if current-project.stack %}
 					<div>
-						<h4 class="inline">Stack</h4>
+						<h5 class="inline">Stack</h5>
 						<span class="project-stack">{{ current-project.stack }}</span>
 					</div>
 				{% endif %}
 				{% if current-project.needed %}
 					<div>
-						<h4 class="inline">NEEDED</h4>
+						<h5 class="inline">NEEDED</h5>
 						<span class="project-stack">{{ current-project.needed }} <a href="mailto:hi@codeforboulder.org?Subject=Helpingspecificproject">Contact us</a> if you are interested.</span>
 					</div>
 				{% endif %}
 				{% if current-project.title %}
-					<a class="view" href="{{ current-project.repoLink }}">View project repo</a>
+					<a class="view" href="{{ current-project.projectLink }}">View latest project update</a>
 				{% endif %}
 			</li>
 		{% endfor %}
 	</ul>
-	-->
 	
 	<h3>Featured projects</h3>
 
@@ -117,7 +115,7 @@ layout: default
 				{% for featured-project in site.featured-projects %}
 			<li>
 				{% if featured-project.pictureLink %}
-				    <img class="left-half" src="{{ site.url }}/featured-projects/{{ featured-project.pictureLink }}" alt="Project: {{ featured-project.title}}">
+				    <img class="left-half bordered" src="{{ site.baseurl }}/featured-projects/{{ featured-project.pictureLink }}" alt="Project: {{ featured-project.title}}">
 				{% endif %}
 				{% if featured-project.title %}
 					<div>
@@ -127,7 +125,7 @@ layout: default
 				{% endif %}
 				{% if featured-project.team %}
 					<div class="margin-top">
-						<h4 class="inline">Team</h4>
+						<h5 class="inline">Team</h5>
 						<span class="project-team">
 							{{ featured-project.team | array_to_sentence_string }}
 						</span>
@@ -135,19 +133,19 @@ layout: default
 				{% endif %}
 				{% if featured-project.partner %}
 					<div>
-						<h4 class="inline">Partner</h4>
+						<h5 class="inline">Partner</h5>
 						<span class="project-partner">{{ featured-project.partner }}</span>
 					</div>
 				{% endif %}
 				{% if featured-project.stack %}
 					<div>
-						<h4 class="inline">Stack</h4>
+						<h5 class="inline">Stack</h5>
 						<span class="project-stack">{{ featured-project.stack }}</span>
 					</div>
 				{% endif %}
 				{% if featured-project.needed %}
 					<div>
-						<h4 class="inline">NEEDED</h4>
+						<h5 class="inline">NEEDED</h5>
 						<span class="project-stack">{{ featured-project.needed }} <a href="mailto:hi@codeforboulder.org?Subject=Helpingspecificproject">Contact us</a> if you are interested.</span>
 					</div>
 				{% endif %}
