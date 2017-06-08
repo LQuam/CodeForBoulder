@@ -94,14 +94,29 @@ layout: default
 						<span class="project-stack">{{ current-project.stack }}</span>
 					</div>
 				{% endif %}
-				{% if current-project.needed %}
+				{% if current-project.repo %}
 					<div>
-						<h5 class="inline">NEEDED</h5>
-						<span class="project-stack">{{ current-project.needed }} <a href="mailto:hi@codeforboulder.org?Subject=Helpingspecificproject">Contact us</a> if you are interested.</span>
+						<h5 class="inline">Repository</h5>
+						<span><a href={{ current-project.repo }}> {{ current-project.repo }} </a></span>
 					</div>
 				{% endif %}
-				{% if current-project.title %}
-					<a class="view" href="{{ current-project.projectLink }}">View latest project update</a>
+				{% if current-project.tasks %}
+					<div>
+						<h5 class="inline">Ongoing tasks</h5>
+						<span><a href={{ current-project.tasks }}> {{ current-project.tasks }} </a></span>
+					</div>
+				{% endif %}
+				{% if current-project.projectLink %}
+					<div>
+						<h5 class="inline">Latest live update</h5>
+						<span><a href={{ current-project.projectLink }}> {{ current-project.projectLink }} </a></span>
+					</div>
+				{% endif %}
+				{% if current-project.needed %}
+					<div>
+						<h5 class="inline">Help needed</h5>
+						<span class="project-stack">{{ current-project.needed }} (<a href="mailto:hi@codeforboulder.org?Subject=Helping {{ current-project.title }}">Contact us</a> if you can help.</span>)
+					</div>
 				{% endif %}
 			</li>
 		{% endfor %}

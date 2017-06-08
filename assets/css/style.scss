@@ -20,6 +20,7 @@ body {
 }
 
 a {
+	overflow-wrap: break-word;
 	&:hover { color: $black-color; }
 	&:link { color: $dark-text-color; }
 
