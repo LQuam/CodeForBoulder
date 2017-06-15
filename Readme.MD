@@ -4,6 +4,15 @@ This is the repository Code for Boulder's official website.
 
 [https://codeforboulder.github.io/CodeForBoulder/](https://codeforboulder.github.io/CodeForBoulder/)
 
+## Running the website on your local machine
+
+From the command line: 
+
+	`cd <CodeForBoulder repo directory>`
+	`gem install bundler`
+	`bundle install`
+	`jekyll serve`
+
 ## How to Contribute
 
 ### Open an Issue
