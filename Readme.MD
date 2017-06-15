@@ -8,10 +8,10 @@ This is the repository Code for Boulder's official website.
 
 From the command line: 
 
-	`cd <CodeForBoulder repo directory>`
-	`gem install bundler`
-	`bundle install`
-	`jekyll serve`
+	cd <CodeForBoulder repo directory>
+	gem install bundler
+	bundle install
+	jekyll serve
 
 ## How to Contribute
 
