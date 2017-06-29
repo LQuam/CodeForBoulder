@@ -176,45 +176,95 @@ layout: default
 <section id="contact-us">
 	<h2>Contact us</h2>
 	<p>We'd love to get in touch with you, talk about your interests, motivations and how you can contribute to Code for Boulder. If <a href="https://www.meetup.com/CodeForBoulder/">meetup</a> and <a href="https://codeforboulder.herokuapp.com/">Slack</a> are not good options, feel free to email us at <a href="mailto:hi@codeforboulder.org?Subject=Hello">hi[at]codeforboulder.org</a> or contact our <a href="https://www.meetup.com/CodeForBoulder/members/?op=leaders">organizers</a> individually.</p>
+  <br />
+  <br />
+  <p>Also, if you have an idea we should pursue, write it here and we will find it.</p>
+  <label>Contact Email</label>
+  <input type="text" id="slackContactEmail" />
+  <label>Idea!</label>
+  <textarea id="slackProposalIdea"></textarea>
+  <button id="slackProposalSubmit">Submit</button>
+  <span id="slackPostSuccess"></span>
 </section>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script>
-    $(function() {
-        var getEvents = "https://api.meetup.com/CodeForBoulder/events?photo-host=public&page=3&sig_id=6047051&fields=%27name%27&sig=258fc3e7a3c6778596104fdc0b4642b9e92095c5";
-        var events = document.getElementById("events");
-        $.getJSON(getEvents + "&callback=?", function(response) {
-            if (response.status && response.status.match(/^200/) == null) {
-                console.log("Meetup API is unresponsive :(");
-            }
-            else {
-            	var data = response.data;
-            	var dataLength = response.data.length;
-            	var events = $('#meetup-events ol').empty();
-            	var week = ["Sun","Mon","Tues","Wed","Thur","Fri","Sat"];
-            	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            	$.each(data, function(i) {
-            		var ev = data[i];
-            		var li = $('<li>').appendTo(events);
-            		var a = $('<a>').attr('href', ev.link).appendTo(li);
-            		var name = $('<span>').addClass('event-name').text(ev.name).appendTo(a);
-            		var eventDate = new Date(ev.time);
-            		var hour = eventDate.getHours();
-            		var ampm = 'am';
+ $(function() {
+   var getEvents = "https://api.meetup.com/CodeForBoulder/events?photo-host=public&page=3&sig_id=6047051&fields=%27name%27&sig=258fc3e7a3c6778596104fdc0b4642b9e92095c5";
+   var events = document.getElementById("events");
+   $.getJSON(getEvents + "&callback=?", function(response) {
+     if (response.status && response.status.match(/^200/) == null) {
+       console.log("Meetup API is unresponsive :(");
+     }
+     else {
+       var data = response.data;
+       var dataLength = response.data.length;
+       var events = $('#meetup-events ol').empty();
+       var week = ["Sun","Mon","Tues","Wed","Thur","Fri","Sat"];
+       var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+       $.each(data, function(i) {
+         var ev = data[i];
+         var li = $('<li>').appendTo(events);
+         var a = $('<a>').attr('href', ev.link).appendTo(li);
+         var name = $('<span>').addClass('event-name').text(ev.name).appendTo(a);
+         var eventDate = new Date(ev.time);
+         var hour = eventDate.getHours();
+         var ampm = 'am';
 
-            		if (hour == 12) {
-            			hour = 12;
-            			ampm = 'pm';
-            		}
-            		else if (hour > 12) {
-            			hour -= 12;
-            			ampm = 'pm';
-            		}
-            		var time = $('<span>').addClass('event-time').text(week[eventDate.getDay()] + " " + eventDate.getDate() + " " + months[eventDate.getMonth()] + " " + eventDate.getFullYear() + " at " + hour + ":" + eventDate.getMinutes() + ampm).appendTo(a);
-            		var venue = ev.venue.name + ' at ' + ev.venue.address_1;
-            		var location = $('<span>').addClass('event-location').text(venue).appendTo(a);
-            	});
-    		}
-    	});
-    });
+         if (hour == 12) {
+           hour = 12;
+           ampm = 'pm';
+         }
+         else if (hour > 12) {
+           hour -= 12;
+           ampm = 'pm';
+         }
+         var time = $('<span>').addClass('event-time').text(week[eventDate.getDay()] + " " + eventDate.getDate() + " " + months[eventDate.getMonth()] + " " + eventDate.getFullYear() + " at " + hour + ":" + eventDate.getMinutes() + ampm).appendTo(a);
+         var venue = ev.venue.name + ' at ' + ev.venue.address_1;
+         var location = $('<span>').addClass('event-location').text(venue).appendTo(a);
+       });
+     }
+   });
+
+   // something quick and dirty to push a message to the slack channel...
+   // may want to do contact validation, filter, styles, but for now, this is a start
+
+   // also, there are warnings about using this method, as it is quick open and abusable
+   $('#slackProposalSubmit').click(function() {
+     var contact = $('#slackContactEmail').val()
+     var idea = $('#slackProposalIdea').val()
+     var slackResponse = $('#slackPostSuccess')
+
+     var payload = {
+       "channel": "#project-proposals",
+       "username": "WebPageProposalPusher",
+       "text": "Contact: " + contact + "\n\nIdea:\n" + idea ,
+       "icon_emoji": ":memo:"
+     }
+
+     $.ajax({
+       url: 'https://hooks.slack.com/services/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',
+       type: 'POST',
+       processData: true,
+       data: JSON.stringify(payload),
+       xhr: function() {
+         var xhr = jQuery.ajaxSettings.xhr();
+         var setRequestHeader = xhr.setRequestHeader;
+         xhr.setRequestHeader = function(name, value) {
+           if (name == 'X-Requested-With') return;
+           setRequestHeader.call(this, name, value);
+         }
+         return xhr;
+       },
+       success: function(data) {
+         slackResponse.text("Message Sent!")
+         setTimeout(function() { slackResponse.text(""); }, 3000)
+       },
+       error: function(data) {
+         slackResponse.text("Sorry, Something went terribly wrong!")
+         setTimeout(function() { slackResponse.text(""); }, 3000)
+       }
+     })
+   })
+ });
 </script>
